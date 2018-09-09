@@ -1,5 +1,6 @@
 FROM debian:jessie
 
+ENV DEBIAN_FRONTEND noninteractive
 ENV VERSION=0.6.8
 
 WORKDIR /srv/
@@ -12,7 +13,9 @@ RUN apt-get update && \
     mkdir -p /srv/glider/ && \
     unzip "glider-v${VERSION}-linux-amd64.zip" -d /srv/glider/ && \
     apt-get remove -y wget unzip && \
-    chmod +x /srv/*.sh
+    chmod +x /srv/*.sh && \
+    chmod +x /srv/glider/glider && \
+    rm -rf "glider-v${VERSION}-linux-amd64.zip"
 
 VOLUME [ "/srv/glider/config" ]
 
