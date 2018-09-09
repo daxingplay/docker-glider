@@ -21,8 +21,8 @@ fw_setup() {
 # Clear the Firewall rules
 ##########################
 fw_clear() {
-  ipset destroy glider
   iptables-save | grep -v glider | iptables-restore
+  ipset destroy glider
   #iptables -L -t nat --line-numbers
   #iptables -t nat -D PREROUTING 2
 }
