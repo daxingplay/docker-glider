@@ -26,7 +26,7 @@ trap 'kill ${!}; usr_handler' SIGUSR1
 trap 'kill ${!}; term_handler' SIGTERM
 
 echo "Starting redsocks..."
-/srv/glider/glider -config /srv/glider/config &
+/srv/glider/glider -config /srv/glider/config/glider.conf &
 pid="$!"
 
 # wait indefinetely
