@@ -16,7 +16,7 @@ fw_setup() {
   iptables -t nat -N GLIDER
 
   while read item; do
-       $item -j RETURN
+      iptables -t nat -A GLIDER -d $item -j RETURN
   done < /srv/glider/config/whitelist.txt
 
 #   iptables -t nat -I PREROUTING -p tcp -m set --match-set glider dst -j REDIRECT --to-ports 1081
