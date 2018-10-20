@@ -10,14 +10,16 @@ fw_setup() {
 
   iptables -P INPUT ACCEPT
   iptables -P FORWARD ACCEPT
-  iptables -t nat -N GLIDER
 
-  #iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j MASQUERADE
+  iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j MASQUERADE
+
+  iptables -t nat -N GLIDER
 
 #   iptables -t nat -I PREROUTING -p tcp -m set --match-set glider dst -j REDIRECT --to-ports 1081
 #   iptables -t nat -I OUTPUT -p tcp -m set --match-set glider dst -j REDIRECT --to-ports 1081
   iptables -t nat -A GLIDER -p tcp -j REDIRECT --to-ports 1081
   iptables -t nat -A PREROUTING -p tcp -j GLIDER
+  iptables -t nat -A OUTPUT -p tcp -j GLIDER
 }
 
 ##########################
