@@ -1,7 +1,9 @@
 #!/bin/bash
 
-echo "Activating iptables rules..."
-/srv/firewall.sh start
+if [ '$GLIDER_ONLY' != 'true' ]; then
+    echo "Activating iptables rules..."
+    /srv/firewall.sh start
+fi
 
 pid=0
 
@@ -13,10 +15,13 @@ usr_handler() {
 # SIGTERM-handler
 term_handler() {
     if [ $pid -ne 0 ]; then
-        echo "Term signal catched. Shutdown glider and disable iptables rules..."
+        echo "Term signal catched. Shutdown glider."
         kill -SIGTERM "$pid"
         wait "$pid"
-        /srv/firewall.sh stop
+        if [ '$GLIDER_ONLY' != 'true' ]; then
+            echo "clean iptable rules..."
+            /srv/firewall.sh stop
+        fi
     fi
     exit 143; # 128 + 15 -- SIGTERM
 }

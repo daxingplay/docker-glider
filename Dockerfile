@@ -2,6 +2,7 @@ FROM debian:jessie
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV VERSION=0.6.8
+ENV GLIDER_ONLY=true
 
 WORKDIR /srv/
 
